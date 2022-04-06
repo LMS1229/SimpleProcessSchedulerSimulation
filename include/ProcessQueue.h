@@ -4,7 +4,7 @@
 typedef struct _node
 {
 	process process_ele;
-	struct _Node* next;
+	struct _node* next;
 }node;
 
 typedef struct _processQueue
