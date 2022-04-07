@@ -1,7 +1,7 @@
 #pragma once
 #include "ProcessQueue.h"
 #include "Vector.h"
-#DEFAULT_TIMEQUNTUM 2
+#define DEFAULT_TIMEQUNTUM 2
 
 vector* MLFQ(process* process_arr, int n, int max_level, int(*timequntum)(int, int));
 
