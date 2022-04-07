@@ -1,19 +1,16 @@
 #pragma once
 #include "Process.h"
 
-typedef struct _node
-{
+typedef struct _node{
 	process process_ele;
 	struct _node* next;
 }node;
 
-typedef struct _processQueue
-{
+typedef struct _processQueue{
 	node* front, *raer;
 }processqueue;
 
-typedef struct _priorityqueue
-{
+typedef struct _priorityqueue{
 	process* tree;
 	int capacity;		//capacity of priority queue
 	int size;			//element of priority queue

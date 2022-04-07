@@ -3,20 +3,9 @@
 
 #include "Scheduler.h"
 
-void PrintResult(vector* result, int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		printf("process %d: ", i);
-		for (int j = 0; j < result[i].size; ++j)
-		{
-			printf("%s", GetAtVector(result + i, j) == 1 ? "■" : "□");
-		}
-		printf("\n");
-		free((result + i)->arr);
-	}
-	free(result);
-}
+int Get_MLFQ_timequntum(int base, int priority);
+void PrintResult(vector* result, int n);
+
 int main()
 {
 	process* arr = 0;
@@ -25,8 +14,7 @@ int main()
 	printf("Input Process count: ");
 	scanf_s("%d", &n);
 	arr = (process*)malloc(sizeof(process) * n);
-	for (int i = 0; i < n; ++i)
-	{
+	for (int i = 0; i < n; ++i)	{
 		int arrive_time, service_time;
 		printf("Input Process %d \'s arrive time and service time: ",i);
 		scanf_s("%d %d", &arrive_time, &service_time);
@@ -53,8 +41,36 @@ int main()
 	printf("SRT\n");
 	PrintResult(result, n);
 
-	result = MLFQ(arr, n, level);
+	result = MLFQ(arr, n, level,0);
+	printf("MLFQ(timquatum= %d\n",MLFQ_DEFAULT_TIMEQUNTUM);
+	PrintResult(result, n);
+
+	result = MLFQ(arr, n, level,Get_MLFQ_timequntum);
 	printf("MLFQ(timquatum= 2^(level of queue-1)\n");
 	PrintResult(result, n);
 	return 0;
+}
+
+void PrintResult(vector* result, int n){
+	for (int i = 0; i < n; i++)	{
+		printf("process %d: ", i);
+		for (int j = 0; j < result[i].size; ++j)		{
+			printf("%s", GetAtVector(result + i, j) == 1 ? "■" : "□");
+		}
+		printf("\n");
+		free((result + i)->arr);
+	}
+	free(result);
+}
+
+int Get_MLFQ_timequntum(int base, int priority){
+	int result=1;
+	while(priority){
+		if(priority&1){
+			result*=base;
+		}
+		base=base*base;
+		priority=priority>>1;
+	}
+	return result;
 }

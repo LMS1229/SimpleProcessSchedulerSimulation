@@ -1,7 +1,6 @@
 #pragma once
 
-typedef struct _process
-{
+typedef struct _process{
 	int arrive_time;	//created time of process
 	int service_time;	//excute time of process
 	int remain_time;	//remain time to terminated

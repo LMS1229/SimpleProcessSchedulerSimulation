@@ -1,7 +1,6 @@
 #include "Process.h"
 
-int Excute_Process(process* pro)
-{
+int Excute_Process(process* pro){
 	if (pro == 0)
 	{
 		return -1;
@@ -9,24 +8,20 @@ int Excute_Process(process* pro)
 	pro->remain_time -= 1;
 	return pro->pid;
 }
-void Init_Process(process* target, int arrive_time, int service_time, int pid)
-{
+
+void Init_Process(process* target, int arrive_time, int service_time, int pid){
 	target->arrive_time = arrive_time;
 	target->service_time = target->remain_time = service_time;
 	target->pid = pid;
 	target->priority = 0;
 }
 
-void Sort(process* process_arr, int n)
-{
-	for (int i = 0; i < n - 1; ++i)
-	{
+void Sort(process* process_arr, int n){
+	for (int i = 0; i < n - 1; ++i)	{
 		process temp;
 		int index = i;
-		for (int j = i + 1; j < n; ++j)
-		{
-			if (process_arr[index].arrive_time > process_arr[j].arrive_time)
-			{
+		for (int j = i + 1; j < n; ++j){
+			if (process_arr[index].arrive_time > process_arr[j].arrive_time){
 				index = j;
 			}
 		}
