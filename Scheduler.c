@@ -3,7 +3,7 @@
 
 #include "Scheduler.h"
 
-int Get_MLFQ_timequntum(int base, int priority);
+int Get_MLFQ_timequantum(int priority);
 void PrintResult(vector* result, int n);
 
 int main()
@@ -42,10 +42,10 @@ int main()
 	PrintResult(result, n);
 
 	result = MLFQ(arr, n, level,0);
-	printf("MLFQ(timquatum= %d\n",MLFQ_DEFAULT_TIMEQUNTUM);
+	printf("MLFQ(timquatum= %d\n",MLFQ_DEFAULT_TIMEQUANTUM);
 	PrintResult(result, n);
 
-	result = MLFQ(arr, n, level,Get_MLFQ_timequntum);
+	result = MLFQ(arr, n, level,Get_MLFQ_timequantum);
 	printf("MLFQ(timquatum= 2^(level of queue-1)\n");
 	PrintResult(result, n);
 	return 0;
@@ -63,8 +63,9 @@ void PrintResult(vector* result, int n){
 	free(result);
 }
 
-int Get_MLFQ_timequntum(int base, int priority){
+int Get_MLFQ_timequantum(int priority){
 	int result=1;
+	int base=2;
 	while(priority){
 		if(priority&1){
 			result*=base;

@@ -1,7 +1,7 @@
 #include "MLFQ.h"
 #include <stdio.h>
 
-vector* MLFQ(process* process_arr, int n, int max_level, int(*timequntum)(int, int)){
+vector* MLFQ(process* process_arr, int n, int max_level, int(*timequantum)(int)){
 	int time = 0, index = 0, excute_time = 0, pid = -1;
 	int all_q_empty = 1;
 	processqueue* lq;		//MLQ
@@ -21,7 +21,7 @@ vector* MLFQ(process* process_arr, int n, int max_level, int(*timequntum)(int, i
 			++index;
 		}
 		//gGt next excute process 
-		excute = Schedueling(lq, excute, &excute_time, max_level, timequntum);
+		excute = Schedueling(lq, excute, &excute_time, max_level, timequantum);
 		if (excute != 0){
 			pid = Excute_Process(excute);
 			excute_time++;
@@ -49,7 +49,7 @@ vector* MLFQ(process* process_arr, int n, int max_level, int(*timequntum)(int, i
 	return processes_excute_flag;
 }
 
-process* Schedueling(processqueue* lq, process* previous_process, int* excute_time, int max_level,int(*timequntum)(int, int)){
+process* Schedueling(processqueue* lq, process* previous_process, int* excute_time, int max_level,int(*timequantum)(int)){
 	process* next_process = 0;
 	if (previous_process == 0){
 		//if process terminated;
@@ -58,7 +58,7 @@ process* Schedueling(processqueue* lq, process* previous_process, int* excute_ti
 		return next_process;
 	}
 	else{
-		if ( *excute_time==(timequntum==0?MLFQ_DEFAULT_TIMEQUNTUM:timequntum(2, previous_process->priority))){
+		if ( *excute_time==(timequantum==0?MLFQ_DEFAULT_TIMEQUANTUM:timequantum(previous_process->priority))){
 			//if all use timequantum
 			//check all queue is empty
 			int flag = 0;
